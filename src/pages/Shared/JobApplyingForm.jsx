@@ -1,424 +1,664 @@
 // import React, { useState } from 'react';
-// import styled from 'styled-components';
-// import { ToastContainer, toast } from 'react-toastify';
+// import { toast, ToastContainer } from 'react-toastify';
 // import 'react-toastify/dist/ReactToastify.css';
-// const Container = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   min-height: vh;
-//   background-color: ;
-  
-  
-// `;
 
-// const Form = styled.form`
-//   width: 100%;
-//   max-width: 600px;
-//   padding: 20px;
-//   background-color: white;
-//   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-//   border-radius: 8px;
-// `;
-
-// const Title = styled.h2`
-//   text-align: center;
-//   font-size: 24px;
-//   font-weight: bold;
-//   margin-bottom: 16px;
-//   color:black;
-// `;
-
-// const Label = styled.label`
-//   display: block;
-//   color: black;
-//   font-size: 14px;
-//   font-weight: bold;
-//   margin-bottom: 2px;
-//   border-radius:4px;
-// `;
-
-// const Input = styled.input`
-//   width: 100%;
-//   padding: 8px 12px;
-//   border: 1px solid black;
-//   border-radius: 9px;
-//   margin-bottom: 16px;
-//   color:black;
-//   &:focus {
-//     outline: none;
-//     border-color: black;
-//     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-//   }
-// `;
-
-// const TextArea = styled.textarea`
-//   width: 100%;
-//   padding: 8px 12px;
-//   border: 1px solid #black;
-//   border-radius: 4px;
-//   margin-bottom: 16px;
-//   &:focus {
-//     outline: none;
-//     border-color: #3182ce;
-//     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-//   }
-// `;
-
-// const Select = styled.select`
-//   width: 100%;
-//   padding: 8px 12px;
-//   color:black;
-//   border: 1px solid #black;
-//   border-radius: 4px;
-//   margin-bottom: 16px;
-//   &:focus {
-//     outline: none;
-//     border-color: black;
-//     box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-//   }
-// `;
-
-// const Button = styled.button`
-//   width: 100%;
-//   padding: 10px 15px;
-//   background-color: black;
-//   color: white;
-//   border: none;
-//   border-radius: 4px;
-//   font-size: 16px;
-//   cursor: pointer;
-//   &:hover {
-//     background-color: #2b6cb0;
-//   }
-// `;
 // const JobForm = () => {
-//   const [formData, setFormData] = useState({
-//     title: '',
-//     salary: '',
-//     email: '',
-//     company: '',
-//     description: '',
-//     jobCategory: '',
+//   const [form, setForm] = useState({
+//     jobTitle: '',
+//     category: '',
 //     jobType: '',
-//     jobExperience: '',
-//     jobVacancy: '',
-//     jobDeadline: ''
+//     applicationDeadline: '',
+//     salaryCurrency: '',
+//     jobDescription: '',
+//     companyName: '',
+//     companyWebsite: '',
+//     companyIndustry: '',
+//     facebookLink: '',
+//     linkedinLink: '',
+//     twitterLink: '',
+//     instagramLink: '',
+//     companyDescription: '',
+//     logo: null,
+//     recruiterCompanyName: '',
+//     recruiterCompanyBusiness: '',
+//     termsAccepted: false,
 //   });
 
 //   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData({
-//       ...formData,
-//       [name]: value
+//     const { name, value, type, checked, files } = e.target;
+//     setForm({
+//       ...form,
+//       [name]: type === 'checkbox' ? checked : type === 'file' ? files[0] : value,
 //     });
 //   };
 
 //   const handleSubmit = (e) => {
 //     e.preventDefault();
-//     // Handle form submission
-//     const missingFields = Object.entries(formData).filter(([key, value]) => value.trim() === '');
 
-//     if (missingFields.length > 0) {
-//       toast.error('Please fill out all fields before submitting.');
+//     // Validate form fields
+//     const requiredFields = [
+//       'jobTitle',
+//       'category',
+//       'jobType',
+//       'applicationDeadline',
+//       'salaryCurrency',
+//       'jobDescription',
+//       'companyName',
+//       'companyWebsite',
+//       'companyIndustry',
+//       'linkedinLink',
+//       'companyDescription',
+//       'recruiterCompanyName',
+//       'recruiterCompanyBusiness',
+//       'termsAccepted'
+//     ];
+
+//     for (let field of requiredFields) {
+//       if (!form[field] && (field !== 'logo' && field !== 'facebookLink' && field !== 'twitterLink' && field !== 'instagramLink')) {
+//         toast.error(`Please fill out the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}.`);
+//         return;
+//       }
+//     }
+
+//     if (!form.termsAccepted) {
+//       toast.error('You must accept the terms and privacy policy.');
 //       return;
 //     }
-//     console.log(formData);
-//     toast.success('Successfully registered!');
+
+//     toast.success('Form submitted successfully!');
+//     console.log('Form submitted:', form);
+//   };
+
+//   const formStyle = {
+//     maxWidth: '800px',
+//     margin: '0 auto',
+//     padding: '20px',
+//     backgroundColor: '#111',
+//     color: '#fff',
+//     borderRadius: '8px',
+//   };
+
+//   const sectionStyle = {
+//     marginBottom: '20px',
+//   };
+
+//   const h3Style = {
+//     marginBottom: '10px',
+//     color: '#f5f5f5',
+//   };
+
+//   const inputStyle = {
+//     width: '100%',
+//     padding: '10px',
+//     marginBottom: '10px',
+//     border: '1px solid #333',
+//     borderRadius: '4px',
+//     backgroundColor: '#222',
+//     color: '#fff',
+//   };
+
+//   const textareaStyle = {
+//     ...inputStyle,
+//     resize: 'vertical',
+//     minHeight: '80px',
+//   };
+
+//   const rowStyle = {
+//     display: 'flex',
+//     gap: '10px',
+//   };
+
+//   const fileInputStyle = {
+//     display: 'flex',
+//     flexDirection: 'column',
+//     gap: '5px',
+//   };
+
+//   const fileSmallStyle = {
+//     color: '#888',
+//   };
+
+//   const buttonStyle = {
+//     width: '100%',
+//     paddingBottom: '30px',
+//     backgroundColor: '#007bff',
+//     color: '#fff',
+//     border: 'none',
+//     borderRadius: '4px',
+//     cursor: 'pointer',
+    
+//   };
+
+//   const buttonHoverStyle = {
+//     backgroundColor: '#0056b3',
+//   };
+
+//   const linkStyle = {
+//     color: '#007bff',
+//     textDecoration: 'underline',
+//   };
+
+//   const linkHoverStyle = {
+//     color: '#0056b3',
 //   };
 
 //   return (
-//     <Container>
-//       <Form onSubmit={handleSubmit}>
-//         <Title>Enter Job Details</Title>
-//         <div>
-//           <Label>Name:</Label>
-//           <Input
-//             type="text"
-//             name="title"
-//             value={formData.title}
+//     <form onSubmit={handleSubmit} style={formStyle}>
+//       <div style={sectionStyle}>
+//         <h3 style={h3Style}>Job Information</h3>
+//         <input
+//           type="text"
+//           name="jobTitle"
+//           placeholder="Job Title"
+//           value={form.jobTitle}
+//           onChange={handleChange}
+//           style={inputStyle}
+//         />
+//         <div style={rowStyle}>
+//           <select
+//             name="category"
+//             value={form.category}
 //             onChange={handleChange}
-//             placeholder="Enter Your name"
-//           />
-//         <div>
-//           <Label>Email:</Label>
-//           <Input
-//             type="email"
-//             name="email"
-//             value={formData.email}
-//             onChange={handleChange}
-//             placeholder="Enter email to be contacted for this job"
-//           />
-//         </div>
-//         </div>
-//         <div>
-//           <Label>Salary:</Label>
-//           <Input
-//             type="text"
-//             name="salary"
-//             value={formData.salary}
-//             onChange={handleChange}
-//             placeholder="Enter your salary Expectation for this job"
-//           />
-//         </div>
-//         <div>
-//           <Label>Company:</Label>
-//           <Input
-//             type="text"
-//             name="company"
-//             value={formData.company}
-//             onChange={handleChange}
-//             placeholder="Enter company of job"
-//           />
-//         </div>
-//         <div>
-//           <Label>Job Type:</Label>
-//           <Select
-//             name="jobType"
-//             value={formData.jobType}
-//             onChange={handleChange}
+//             style={inputStyle}
 //           >
-//             <option value="">Please select job type</option>
+//             <option value="">Select Category</option>
+//             <option value="Engineering">Engineering</option>
+//             <option value="Marketing">Marketing</option>
+//             <option value="Design">Design</option>
+//             <option value="Sales">Sales</option>
+//             {/* Add more categories as needed */}
+//           </select>
+
+//           <select
+//             name="jobType"
+//             value={form.jobType}
+//             onChange={handleChange}
+//             style={inputStyle}
+//           >
+//             <option value="">Select Job Type</option>
 //             <option value="Full-time">Full-time</option>
 //             <option value="Part-time">Part-time</option>
 //             <option value="Contract">Contract</option>
-//           </Select>
+//             <option value="Internship">Internship</option>
+//             {/* Add more job types as needed */}
+//           </select>
 //         </div>
-//         <div>
-//           <Label>Job Category:</Label>
-//           <Input
-//             type="text"
-//             name="jobCategory"
-//             value={formData.jobCategory}
+//         <div style={rowStyle}>
+//           <input
+//             type="date"
+//             name="applicationDeadline"
+//             value={form.applicationDeadline}
 //             onChange={handleChange}
-//             placeholder="Enter category of job"
+//             style={inputStyle}
+//           />
+//           <input
+//             type="text"
+//             name="salaryCurrency"
+//             placeholder="Salary Currency"
+//             value={form.salaryCurrency}
+//             onChange={handleChange}
+//             style={inputStyle}
 //           />
 //         </div>
-      
-//         <Button type="submit">Submit</Button>
-//         <ToastContainer />
-//       </Form>
-//     </Container>
+//         <textarea
+//           name="jobDescription"
+//           placeholder="Job Description"
+//           value={form.jobDescription}
+//           onChange={handleChange}
+//           style={textareaStyle}
+//         ></textarea>
+//       </div>
+
+//       <div style={sectionStyle}>
+//         <h3 style={h3Style}>Company Information</h3>
+//         <input
+//           type="text"
+//           name="companyName"
+//           placeholder="Company Name"
+//           value={form.companyName}
+//           onChange={handleChange}
+//           style={inputStyle}
+//         />
+//         <input
+//           type="text"
+//           name="companyWebsite"
+//           placeholder="Company Website"
+//           value={form.companyWebsite}
+//           onChange={handleChange}
+//           style={inputStyle}
+//         />
+//         <input
+//           type="text"
+//           name="companyIndustry"
+//           placeholder="Company Industry"
+//           value={form.companyIndustry}
+//           onChange={handleChange}
+//           style={inputStyle}
+//         />
+//         <input
+//           type="text"
+//           name="linkedinLink"
+//           placeholder="LinkedIn Page Link"
+//           value={form.linkedinLink}
+//           onChange={handleChange}
+//           style={inputStyle}
+//         />
+//         <textarea
+//           name="companyDescription"
+//           placeholder="Company Description"
+//           value={form.companyDescription}
+//           onChange={handleChange}
+//           style={textareaStyle}
+//         ></textarea>
+//         <div style={fileInputStyle}>
+//           <label htmlFor="logo">Add Your Resume</label>
+//           <input
+//             type="file"
+//             name="logo"
+//             id="logo"
+//             onChange={handleChange}
+//             style={inputStyle}
+//           />
+//           <small style={fileSmallStyle}>Maximum file size: 2 MB</small>
+//         </div>
+//       </div>
+
+//       <div style={sectionStyle}>
+//         <h3 style={h3Style}>Recruiter Information</h3>
+//         <input
+//           type="text"
+//           name="recruiterCompanyName"
+//           placeholder="Company Name"
+//           value={form.recruiterCompanyName}
+//           onChange={handleChange}
+//           style={inputStyle}
+//         />
+//         <input
+//           type="text"
+//           name="recruiterCompanyBusiness"
+//           placeholder="Company Business"
+//           value={form.recruiterCompanyBusiness}
+//           onChange={handleChange}
+//           style={inputStyle}
+//         />
+//       </div>
+
+//       <div style={sectionStyle}>
+//         <label>
+//           <input
+//             type="checkbox"
+//             name="termsAccepted"
+//             checked={form.termsAccepted}
+//             onChange={handleChange}
+//           />
+//           Accept <a href="#" style={linkStyle}>terms and privacy policy</a>
+//         </label>
+//         <button 
+//                   type="submit"
+//           style={buttonStyle}
+//           onMouseOver={(e) => e.target.style.backgroundColor = buttonHoverStyle.backgroundColor}
+//           onMouseOut={(e) => e.target.style.backgroundColor = buttonStyle.backgroundColor}
+//         >
+//           Post A Job
+//         </button>
+//       </div>
+
+//       <ToastContainer />
+//     </form>
 //   );
 // };
 
 // export default JobForm;
 
 
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { ToastContainer, toast } from 'react-toastify';
+
+
+import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Container = styled.div`
-  display: flex;
-  align-items: start;
-  justify-content: center;
-  min-height: 100vh; /* Fixed */
-  background-color: #f0f0f0; /* Example background color */
-`;
-
-const Form = styled.form`
-  width: 100%;
-  max-width: 600px;
-  min-height:40px;
-  padding: 20px;
-  background-color: white;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-`;
-
-const Title = styled.h2`
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 16px;
-  color: black;
-`;
-
-const Label = styled.label`
-  display: block;
-  color: black;
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 2px;
-  border-radius: 4px;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 8px 12px;
-  border: 1px solid black;
-  border-radius: 4px; /* Updated */
-  margin-bottom: 16px;
-  color: black;
-  &:focus {
-    outline: none;
-    border-color: black;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-  }
-`;
-
-const Select = styled.select`
-  width: 100%;
-  padding: 8px 12px;
-  color: black;
-  border: 1px solid black; /* Fixed */
-  border-radius: 4px;
-  margin-bottom: 16px;
-  &:focus {
-    outline: none;
-    border-color: black;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-  }
-`;
-
-const Button = styled.button`
-  width: 100%;
-  padding: 10px 15px;
-  background-color: black;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  &:hover {
-    background-color: #2b6cb0;
-  }
-`;
-
 const JobForm = () => {
-  const [formData, setFormData] = useState({
-    title: '',
-    salary: '',
-    email: '',
-    company: '',
-    jobCategory: '',
+  const [form, setForm] = useState({
+    jobTitle: '',
+    category: '',
     jobType: '',
+    applicationDeadline: '',
+    salaryCurrency: '',
+    jobDescription: '',
+    companyName: '',
+    companyWebsite: '',
+    companyIndustry: '',
+    linkedinLink: '',
+    companyDescription: '',
+    logo: null,
+    recruiterCompanyName: '',
+    recruiterCompanyBusiness: '',
+    termsAccepted: false,
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
+    const { name, value, type, checked, files } = e.target;
+    setForm({
+      ...form,
+      [name]: type === 'checkbox' ? checked : type === 'file' ? files[0] : value,
     });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const missingFields = Object.entries(formData).filter(([key, value]) => value.trim() === '');
 
-    if (missingFields.length > 0) {
-      toast.error('Please fill out all fields before submitting.');
+    const requiredFields = [
+      'jobTitle',
+      'category',
+      'jobType',
+      'applicationDeadline',
+      'salaryCurrency',
+      'jobDescription',
+      'companyName',
+      'companyWebsite',
+      'companyIndustry',
+      'linkedinLink',
+      'companyDescription',
+      'recruiterCompanyName',
+      'recruiterCompanyBusiness',
+      'termsAccepted'
+    ];
+
+    for (let field of requiredFields) {
+      if (!form[field]) {
+        toast.error(`Please fill out the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()}.`);
+        return;
+      }
+    }
+
+    if (!form.termsAccepted) {
+      toast.error('You must accept the terms and privacy policy.');
       return;
     }
-  // useEffect(() => {
-  //   const allFieldsFilled = Object.values(formData).every(value => value.trim() === '');
-    
-  //   if (allFieldsFilled) {
-  //     toast.success('Successfully registered! Waiting for confirmation.');
-  //   }
-  // }, [formData]);
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData({
-  //     ...formData,
-  //     [name]: value
-  //   });
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   const missingFields = Object.entries(formData).filter(([key, value]) => value.trim() === '');
-
-  //   if (missingFields.length > 0) {
-  //     toast.error('Please fill out all fields before submitting.');
-  //     return;
-  //   }
-
-    console.log(formData);
-    toast.success('Successfully registered! Waiting for confirmation.');
+    toast.success('Form submitted successfully!');
+    console.log('Form submitted:', form);
   };
 
+  const formStyle = {
+    maxWidth: '800px',
+    margin: '20px auto',
+    padding: '20px',
+    backgroundColor: '#111',
+    color: '#fff',
+    borderRadius: '8px',
+    animation: 'fadeIn 1s ease-in-out',
+    boxShadow: '0px 0px 15px rgba(0, 0, 0, 0.5)',
+  };
+
+  const keyframesStyle = `
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+  `;
+
+  const sectionStyle = {
+    marginBottom: '20px',
+  };
+
+  const h3Style = {
+    marginBottom: '10px',
+    color: '#f5f5f5',
+    animation: 'slideIn 0.8s ease-in-out',
+  };
+
+  const inputStyle = {
+    width: '100%',
+    padding: '10px',
+    marginBottom: '10px',
+    border: '1px solid #333',
+    borderRadius: '4px',
+    backgroundColor: '#222',
+    color: '#fff',
+    transition: 'background-color 0.3s ease-in-out, border-color 0.3s ease-in-out',
+  };
+
+  const textareaStyle = {
+    ...inputStyle,
+    resize: 'vertical',
+    minHeight: '80px',
+  };
+
+  const rowStyle = {
+    display: 'flex',
+    gap: '10px',
+    flexWrap: 'wrap',
+  };
+
+  const fileInputStyle = {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '5px',
+  };
+
+  const fileSmallStyle = {
+    color: '#888',
+  };
+
+  const buttonStyle = {
+    width: '100%',
+    padding: '10px',
+    backgroundColor: '#007bff',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    transition: 'background-color 0.6s ease-in-out',
+  };
+
+  const buttonHoverStyle = {
+    backgroundColor: '#0056b3',
+  };
+
+  const linkStyle = {
+    color: '#007bff',
+    textDecoration: 'underline',
+    transition: 'color 0.3s ease-in-out',
+  };
+
+  const linkHoverStyle = {
+    color: '#0056b3',
+  };
+
+  const mediaQueryStyle = `
+    @media (max-width: 600px) {
+      .row {
+        flex-direction: column;
+      }
+    }
+  `;
+
   return (
-    <Container>
-      <Form onSubmit={handleSubmit}>
-        <Title>Enter Job Details</Title>
-        <div>
-          <Label htmlFor="title">Name:</Label>
-          <Input
+    <div>
+      <style>{keyframesStyle}</style>
+      <style>{mediaQueryStyle}</style>
+      <form onSubmit={handleSubmit} style={formStyle}>
+        <div style={sectionStyle}>
+          <h3 style={h3Style}>Job Information</h3>
+          <input
             type="text"
-            id="title"
-            name="title"
-            value={formData.title}
+            name="jobTitle"
+            placeholder="Job Title"
+            value={form.jobTitle}
             onChange={handleChange}
-            placeholder="Enter Your name"
+            style={inputStyle}
           />
-        </div>
-        <div>
-          <Label htmlFor="email">Email:</Label>
-          <Input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
+          <div style={rowStyle} className="row">
+            <select
+              name="category"
+              value={form.category}
+              onChange={handleChange}
+              style={inputStyle}
+            >
+              <option value="">Select Category</option>
+              <option value="Engineering">Engineering</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Design">Design</option>
+              <option value="Sales">Sales</option>
+              {/* Add more categories as needed */}
+            </select>
+
+            <select
+              name="jobType"
+              value={form.jobType}
+              onChange={handleChange}
+              style={inputStyle}
+            >
+              <option value="">Select Job Type</option>
+              <option value="Full-time">Full-time</option>
+              <option value="Part-time">Part-time</option>
+              <option value="Contract">Contract</option>
+              <option value="Internship">Internship</option>
+              {/* Add more job types as needed */}
+            </select>
+          </div>
+          <div style={rowStyle} className="row">
+            <input
+              type="date"
+              name="applicationDeadline"
+              value={form.applicationDeadline}
+              onChange={handleChange}
+              style={inputStyle}
+            />
+            <input
+              type="text"
+              name="salaryCurrency"
+              placeholder="Salary Currency"
+              value={form.salaryCurrency}
+              onChange={handleChange}
+              style={inputStyle}
+            />
+          </div>
+          <textarea
+            name="jobDescription"
+            placeholder="Job Description"
+            value={form.jobDescription}
             onChange={handleChange}
-            placeholder="Enter email to be contacted for this job"
-          />
+            style={textareaStyle}
+          ></textarea>
         </div>
-        <div>
-          <Label htmlFor="salary">Salary:</Label>
-          <Input
+
+        <div style={sectionStyle}>
+          <h3 style={h3Style}>Company Information</h3>
+          <input
             type="text"
-            id="salary"
-            name="salary"
-            value={formData.salary}
+            name="companyName"
+            placeholder="Company Name"
+            value={form.companyName}
             onChange={handleChange}
-            placeholder="Enter your salary Expectation for this job"
+            style={inputStyle}
           />
-        </div>
-        <div>
-          <Label htmlFor="company">Company:</Label>
-          <Input
+          <input
             type="text"
-            id="company"
-            name="company"
-            value={formData.company}
+            name="companyWebsite"
+            placeholder="Company Website"
+            value={form.companyWebsite}
             onChange={handleChange}
-            placeholder="Enter company of job"
+            style={inputStyle}
+          />
+          <input
+            type="text"
+            name="companyIndustry"
+            placeholder="Company Industry"
+            value={form.companyIndustry}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+          <input
+            type="text"
+            name="linkedinLink"
+            placeholder="LinkedIn Page Link"
+            value={form.linkedinLink}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+          <textarea
+            name="companyDescription"
+            placeholder="Company Description"
+            value={form.companyDescription}
+            onChange={handleChange}
+            style={textareaStyle}
+          ></textarea>
+          <div style={fileInputStyle}>
+            <label htmlFor="logo">Add Your Resume</label>
+            <input
+              type="file"
+              name="logo"
+              id="logo"
+              onChange={handleChange}
+              style={inputStyle}
+            />
+            <small style={fileSmallStyle}>Maximum file size: 2 MB</small>
+          </div>
+        </div>
+
+        <div style={sectionStyle}>
+          <h3 style={h3Style}>Recruiter Information</h3>
+          <input
+            type="text"
+            name="recruiterCompanyName"
+            placeholder="Company Name"
+            value={form.recruiterCompanyName}
+            onChange={handleChange}
+            style={inputStyle}
+          />
+          <input
+            type="text"
+            name="recruiterCompanyBusiness"
+            placeholder="Company Business"
+            value={form.recruiterCompanyBusiness}
+            onChange={handleChange}
+            style={inputStyle}
           />
         </div>
-        <div>
-          <Label htmlFor="jobType">Job Type:</Label>
-          <Select
-            id="jobType"
-            name="jobType"
-            value={formData.jobType}
-            onChange={handleChange}
+
+        <div style={sectionStyle}>
+          <label>
+            <input
+              type="checkbox"
+              name="termsAccepted"
+              checked={form.termsAccepted}
+              onChange={handleChange}
+            />
+            Accept <a href="/privacy-policy" style={linkStyle} onMouseOver={(e) => e.target.style.color = linkHoverStyle.color} onMouseOut={(e) => e.target.style.color = linkStyle.color}>terms and privacy policy</a>
+          </label>
+          
+          <button 
+            type="submit"
+            style={buttonStyle}
+            onMouseOver={(e) => e.target.style.backgroundColor = buttonHoverStyle.backgroundColor}
+            onMouseOut={(e) => e.target.style.backgroundColor = buttonStyle.backgroundColor}
           >
-            <option value="">Please select job type</option>
-            <option value="Full-time">Full-time</option>
-            <option value="Part-time">Part-time</option>
-            <option value="Contract">Contract</option>
-          </Select>
+            Post A Job
+          </button>
         </div>
-        <div>
-          <Label htmlFor="jobCategory">Job Category:</Label>
-          <Input
-            type="text"
-            id="jobCategory"
-            name="jobCategory"
-            value={formData.jobCategory}
-            onChange={handleChange}
-            placeholder="Enter category of job"
-          />
-        </div>
-        <Button type="submit">Submit</Button>
+
         <ToastContainer />
-      </Form>
-    </Container>
+      </form>
+    </div>
   );
 };
 

@@ -19,7 +19,10 @@ import AdminUsers from './pages/Admin/AdminUsers'
 import Jobs1 from './pages/Admin/Jobs1'
 import ContactUs from './pages/Shared/ContactUs'
 // import DashBoard from './layout/DashBoard';
+import PrivacyPolicy from './pages/Shared/PrivacyPolicy';
 import DocumentManagement from './pages/Admin/DocumentManagement'
+import ProfileOverview from './pages/User/ProfileOverview'
+import JobSearch from './pages/User/JobSearch'
 const App = () => {
     return (
         <>
@@ -34,19 +37,22 @@ const App = () => {
                         <Route path='/jobapply' element={<JobApplyingForm/>} />
                         <Route path='/viewjobs' element={<ViewJobs/>} />
                         <Route path='/contactus' element={<ContactUs/>}/>
+                        <Route path='/privacy-policy' element={<PrivacyPolicy/>}/>
                         
                     </Route>
 
-                    {/* <Route element={<AdminLayout />}>
-                        <Route path='/admin/dashboard' element={<AdminDashboard />} />
-                    </Route> */}
+                   
                     <Route element={<AdminLayout />}>
                         <Route path='/admin/dashboard' element={<AdminDashboard />} />
                         <Route path='/admin/Users' element={<AdminUsers />} />
                         <Route path='/admin/jobs1' element={<Jobs1 />} />
                         <Route path='/admin/documentmanagement' element={<DocumentManagement />}/>
                     </Route>
+                    <Route element={<UserLayout />}>
+                    <Route path='/user/profile' element={<ProfileOverview />} />
+                    <Route path='/user/job-search' element={<JobSearch />} />
 
+                    </Route>
                     <Route path='*' element={<NotFound />} />
                 </Routes>
             </BrowserRouter>

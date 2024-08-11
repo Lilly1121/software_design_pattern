@@ -1,4 +1,9 @@
+
+
 // import { useState } from 'react';
+// import axios from 'axios';
+// import { toast, ToastContainer } from 'react-toastify';
+// import 'react-toastify/dist/ReactToastify.css';
 // import { Button } from '@/components/ui/button';
 // import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 // import { Input } from '@/components/ui/input';
@@ -34,13 +39,30 @@
 //         return newErrors;
 //     };
 
-//     const handleSubmit = (e) => {
+//     const handleSubmit = async (e) => {
 //         e.preventDefault();
 //         const newErrors = validate();
 //         if (Object.keys(newErrors).length === 0) {
-//             // Perform registration logic here
-//             // If registration is successful:
-//             window.location.href = '/login'; // Navigate to the login page
+//             try {
+//                 const response = await axios.post('/api/register', {
+//                     name,
+//                     phone,
+//                     email,
+//                     password
+//                 });
+
+//                 toast.success(response.data);
+//                 setTimeout(() => {
+//                     window.location.href = '/login'; // Navigate to login page
+//                 }, 2000);
+
+//             } catch (error) {
+//                 if (error.response && error.response.status === 409) {
+//                     toast.error(error.response.data);
+//                 } else {
+//                     toast.error('Something went wrong. Please try again.');
+//                 }
+//             }
 //         } else {
 //             setErrors(newErrors);
 //         }
@@ -48,6 +70,7 @@
 
 //     return (
 //         <div className='min-h-screen flex items-center justify-center'>
+//             <ToastContainer />
 //             <Card className="w-full max-w-md shadow-xl rounded-xl ">
 //                 <CardHeader className="p-4 text-center border-b ">
 //                     <CardTitle className="text-5xl font-semibold text-gray-800">Create an Account</CardTitle>
@@ -118,17 +141,19 @@
 //         </div>
 //     );
 // };
-
 // export default Register;
 
-import { useState } from 'react';
+
+
+
+import React, { useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-
+import { SignUp } from '@/services/api';
 const Register = () => {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -159,22 +184,18 @@ const Register = () => {
         return newErrors;
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const newErrors = validate();
         if (Object.keys(newErrors).length === 0) {
-            // Mock API call to check if user exists and create new user
-            const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
-            const userExists = existingUsers.some(user => user.email === email);
-            if (userExists) {
-                toast.error('User already exists. Try to log in.');
-            } else {
-                const newUser = { name, phone, email, password };
-                localStorage.setItem('users', JSON.stringify([...existingUsers, newUser]));
-                toast.success('Account created successfully. Please log in.');
+            try {
+                const response = await SignUp(name, email, phone, '', password);
+                toast.success('Registration successful!');
                 setTimeout(() => {
-                    window.location.href = '/login'; // Navigate to login page
+                    window.location.href = '/login';
                 }, 2000);
+            } catch (error) {
+                toast.error('Registration failed. Please try again.');
             }
         } else {
             setErrors(newErrors);
@@ -184,8 +205,8 @@ const Register = () => {
     return (
         <div className='min-h-screen flex items-center justify-center'>
             <ToastContainer />
-            <Card className="w-full max-w-md shadow-xl rounded-xl ">
-                <CardHeader className="p-4 text-center border-b ">
+            <Card className="w-full max-w-md shadow-xl rounded-xl">
+                <CardHeader className="p-4 text-center border-b">
                     <CardTitle className="text-5xl font-semibold text-gray-800">Create an Account</CardTitle>
                     <CardDescription className="mt-1 text-base text-gray-600">
                         Enter your details below to create your account.
@@ -244,7 +265,7 @@ const Register = () => {
                             </div>
                         </div>
                     </CardContent>
-                    <CardFooter className="p-4 text-center border-t ">
+                    <CardFooter className="p-4 text-center border-t">
                         <Button type="submit" className="w-full py-2 bg-purple-600 text-white font-semibold rounded-lg shadow-md hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
                             Create Account
                         </Button>
@@ -256,4 +277,3 @@ const Register = () => {
 };
 
 export default Register;
-
