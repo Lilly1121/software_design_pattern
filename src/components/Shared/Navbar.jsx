@@ -51,7 +51,7 @@ const Navbar = () => {
         {
           NavLinks.map((links, index) => (
             <li key={index} className="list-none flex items-center">
-              <NavLink to={links.path} className="flex items-center gap-2 text-sm md:text-base">
+              <NavLink to={links.path} className="flex items-center gap-2 text-sm md:text-base text-white">
                 {links.icon}
                 {links.title}
               </NavLink>

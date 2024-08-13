@@ -1,9 +1,9 @@
-
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import BlurFade from "@/components/magicui/blur-fade";
+import { useNavigate } from "react-router-dom";
 
 // Mock job data
 const jobCategories = [
@@ -39,6 +39,7 @@ const jobs = [
 const Home = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [filteredJobs, setFilteredJobs] = useState(jobs);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (selectedCategories.length === 0) {
@@ -60,6 +61,10 @@ const Home = () => {
     );
   };
 
+  const handleApplyNow = () => {
+    navigate("/jobapply");
+  };
+
   return (
     <PageContainer>
       <section id="header">
@@ -71,13 +76,6 @@ const Home = () => {
       </section>
 
       <HeroSection>
-        {/* <div>
-
-      <video autoPlay muted loop>
-      <source src="src/assets/videos/video1.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video> */}
-        {/* </div> */}
         <BlurFade delay={0.50} inView>
           <HeroContent>
             <HeroTitle>Find Your Dream Job</HeroTitle>
@@ -132,24 +130,54 @@ const Home = () => {
             <FeaturedCard>
               <FeaturedTitle>Frontend Developer</FeaturedTitle>
               <FeaturedCompany>ABC Company - San Francisco, CA</FeaturedCompany>
-              <ApplyButton>Apply Now</ApplyButton>
+              <ApplyButton onClick={handleApplyNow}>Apply Now</ApplyButton>
             </FeaturedCard>
             <FeaturedCard>
               <FeaturedTitle>Marketing Specialist</FeaturedTitle>
               <FeaturedCompany>XYZ Inc - New York, NY</FeaturedCompany>
-              <ApplyButton>Apply Now</ApplyButton>
+              <ApplyButton onClick={handleApplyNow}>Apply Now</ApplyButton>
             </FeaturedCard>
             <FeaturedCard>
               <FeaturedTitle>Backend Developer</FeaturedTitle>
               <FeaturedCompany>XYZ Inc - New York, NY</FeaturedCompany>
-              <ApplyButton>Apply Now</ApplyButton>
+              <ApplyButton onClick={handleApplyNow}>Apply Now</ApplyButton>
             </FeaturedCard>
             <FeaturedCard>
               <FeaturedTitle>Fullstack Developer</FeaturedTitle>
               <FeaturedCompany>XYZ Inc - New York, NY</FeaturedCompany>
-              <ApplyButton>Apply Now</ApplyButton>
+              <ApplyButton onClick={handleApplyNow}>Apply Now</ApplyButton>
             </FeaturedCard>
-          </FeaturedGrid>
+            <FeaturedCard>
+  <FeaturedTitle>Data Analyst</FeaturedTitle>
+  <FeaturedCompany>DataCorp - Chicago, IL</FeaturedCompany>
+  <ApplyButton onClick={handleApplyNow}>Apply Now</ApplyButton>
+  </FeaturedCard>
+<FeaturedCard>
+  <FeaturedTitle>UI/UX Designer</FeaturedTitle>
+  <FeaturedCompany>DesignStudio - Los Angeles, CA</FeaturedCompany>
+  <ApplyButton onClick={handleApplyNow}>Apply Now</ApplyButton>
+  </FeaturedCard>
+<FeaturedCard>
+  <FeaturedTitle>Project Manager</FeaturedTitle>
+  <FeaturedCompany>GlobalTech - Austin, TX</FeaturedCompany>
+  <ApplyButton onClick={handleApplyNow}>Apply Now</ApplyButton>
+  </FeaturedCard>
+<FeaturedCard>
+  <FeaturedTitle>DevOps Engineer</FeaturedTitle>
+  <FeaturedCompany>CloudNet - Seattle, WA</FeaturedCompany>
+  <ApplyButton onClick={handleApplyNow}>Apply Now</ApplyButton>
+  </FeaturedCard>
+<FeaturedCard>
+  <FeaturedTitle>Software Engineer</FeaturedTitle>
+  <FeaturedCompany>InnoSoft - Boston, MA</FeaturedCompany>
+  <ApplyButton onClick={handleApplyNow}>Apply Now</ApplyButton>
+  </FeaturedCard>
+<FeaturedCard>
+  <FeaturedTitle>Product Manager</FeaturedTitle>
+  <FeaturedCompany>StartupX - Denver, CO</FeaturedCompany>
+  <ApplyButton onClick={handleApplyNow}>Apply Now</ApplyButton>
+  </FeaturedCard>
+</FeaturedGrid>
         </BlurFade>
       </Section>
     </PageContainer>
@@ -157,6 +185,9 @@ const Home = () => {
 };
 
 export default Home;
+
+// Styled Components (same as before)
+
 
 // Styled Components
 const PageContainer = styled.div`

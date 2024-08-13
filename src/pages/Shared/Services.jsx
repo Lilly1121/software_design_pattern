@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLaptopCode, faHeartbeat, faDollarSign, faGraduationCap, faShoppingCart, faBullhorn, faHardHat, faHotel } from '@fortawesome/free-solid-svg-icons';
@@ -11,19 +10,9 @@ const MainPageWrapper = styled.div`
   position: relative;
   height: 100vh;
   overflow: hidden;
-    flex-direction: column;
-    display:flex;
-
+  display: flex;
+  flex-direction: column;
 `;
-// const MainPageWrapper = styled.div`
-//   text-align: center;
-//   font-family: 'Roboto', sans-serif;
-//   position: relative;
-//   display: flex;
-//   flex-direction: column;
-//   height: 100vh;
-//   overflow: hidden;
-// `;
 
 const VideoBackground = styled.video`
   position: absolute;
@@ -51,17 +40,17 @@ const HeaderTitle = styled.h1`
 `;
 
 const ServicesSection = styled.div`
-  margin-top: auto;
-  padding: 30px 10px 100px; /* Adjust the bottom padding to move the circles up */
+  // margin-top: auto;
+  padding: 30px 10px 100px;
   position: relative;
   z-index: 1;
 `;
+
 const ServicesContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
- 
+  gap: 40px;
 `;
 
 const popIn = keyframes`
@@ -75,8 +64,6 @@ const popIn = keyframes`
   }
 `;
 
-
-
 const hoverEffect = keyframes`
   0%, 100% {
     transform: scale(1);
@@ -85,20 +72,16 @@ const hoverEffect = keyframes`
     transform: scale(1.1);
   }
 `;
-
-const ServiceCircle = styled.button`
-  background-color: white;
+const ServiceCircle = styled.div`
+  background-color: rgba(255, 255, 255, 0.8); // Set background color with transparency
   border: 2px solid black;
   border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  position: relative;
+  width: 230px; 
+  height: 230px; 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-conten
   text-align: center;
-
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, box-shadow 0.3s;
   animation: ${popIn} 0.5s ease-out;
@@ -109,32 +92,26 @@ const ServiceCircle = styled.button`
   }
 
   .icon {
-    font-size: 60px;
-    color:black;
+    font-size: 80px; 
+    color: black;
     margin-bottom: 10px;
   }
 
   p {
-    position: relative;
     margin: 0;
-    font-size: 18px;
-    
+    font-size: 16px;
     color: black;
-    z-index: 1;
-    
-     /* Ensure the text is above the image */
+    line-height: 1.2;
+    padding: 0 5px;
   }
-     
-    
+
+  p:last-of-type {
+    margin-top: 5px;
+  }
 `;
 
+
 const Services = () => {
-  const navigate = useNavigate();
-
-  const handleNavigate = (path) => {
-    navigate(path);
-  };
-
   return (
     <MainPageWrapper>
       <VideoBackground autoPlay loop muted>
@@ -146,37 +123,45 @@ const Services = () => {
       </Header>
       <ServicesSection>
         <ServicesContainer>
-          <ServiceCircle onClick={() => handleNavigate('/tech-jobs')}>
+          <ServiceCircle>
             <FontAwesomeIcon icon={faLaptopCode} className="icon" />
             <p>Tech Jobs</p>
+            <p>Software development, IT support, and more.</p>
           </ServiceCircle>
-          <ServiceCircle onClick={() => handleNavigate('/healthcare-jobs')}>
+          <ServiceCircle>
             <FontAwesomeIcon icon={faHeartbeat} className="icon" />
             <p>Healthcare Jobs</p>
+            <p>Doctors, nurses, medical technicians, etc.</p>
           </ServiceCircle>
-          <ServiceCircle onClick={() => handleNavigate('/finance-jobs')}>
+          <ServiceCircle>
             <FontAwesomeIcon icon={faDollarSign} className="icon" />
             <p>Finance Jobs</p>
+            <p>Accountants, financial analysts, bankers.</p>
           </ServiceCircle>
-          <ServiceCircle onClick={() => handleNavigate('/education-jobs')}>
+          <ServiceCircle>
             <FontAwesomeIcon icon={faGraduationCap} className="icon" />
             <p>Education Jobs</p>
+            <p>Teachers, professors, educational administrators.</p>
           </ServiceCircle>
-          <ServiceCircle onClick={() => handleNavigate('/retail-jobs')}>
+          <ServiceCircle>
             <FontAwesomeIcon icon={faShoppingCart} className="icon" />
             <p>Retail Jobs</p>
+            <p>Store managers, sales associates, cashiers.</p>
           </ServiceCircle>
-          <ServiceCircle onClick={() => handleNavigate('/marketing-jobs')}>
+          <ServiceCircle>
             <FontAwesomeIcon icon={faBullhorn} className="icon" />
             <p>Marketing Jobs</p>
+            <p>Marketing managers, SEO specialists, PR experts.</p>
           </ServiceCircle>
-          <ServiceCircle onClick={() => handleNavigate('/construction-jobs')}>
+          <ServiceCircle>
             <FontAwesomeIcon icon={faHardHat} className="icon" />
             <p>Construction Jobs</p>
+            <p>Engineers, architects, construction workers.</p>
           </ServiceCircle>
-          <ServiceCircle onClick={() => handleNavigate('/hospitality-jobs')}>
+          <ServiceCircle>
             <FontAwesomeIcon icon={faHotel} className="icon" />
             <p>Hospitality Jobs</p>
+            <p>Hotel managers, chefs, front desk staff.</p>
           </ServiceCircle>
         </ServicesContainer>
       </ServicesSection>

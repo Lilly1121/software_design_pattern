@@ -19,8 +19,8 @@ axiosInstance.interceptors.request.use(
     }
 );
 
-const SignUp = (name, email, phone, address, password) => 
-    axiosInstance.post('/auth/register', { name, email, phone, address, password });
+const SignUp = (name, email, password, phone,) => 
+    axiosInstance.post('/auth/register', { name, email, phone, password });
 
 const SignIn = (email, password) => 
     axiosInstance.post('/auth/login', { email, password });
@@ -33,9 +33,19 @@ const UpdateUserByID = (id, data) =>
 
 const DeleteUserByID = (id) => 
     axiosInstance.delete(`/users/delete/${id}`);
+const CreateCompany = (name, contactEmail, contactPhone) =>
+    axiosInstance.post(`${baseURL}/companies`, { name, contactEmail, contactPhone });
+
+const GetAllCompanies = () => axiosInstance.get('/companies');
+
+const UpdateCompany = (id, companyData) =>
+    axiosInstance.put(`/companies/${id}`, companyData);
+
+const DeleteCompany = (id) => axiosInstance.delete(`/companies/${id}`);
+
 
 // Admin
 const getAllUsers = () => 
     axiosInstance.get('/users/all');
 
-export { axiosInstance, SignUp, SignIn, UserData, UpdateUserByID, DeleteUserByID, getAllUsers };
+export { axiosInstance, SignUp, SignIn, CreateCompany,GetAllCompanies,UpdateCompany,DeleteCompany, UserData, UpdateUserByID, DeleteUserByID, getAllUsers };

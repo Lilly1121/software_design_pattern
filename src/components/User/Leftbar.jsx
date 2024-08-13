@@ -1,31 +1,44 @@
 
 import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
-import { LayoutDashboard, Users, Power } from 'lucide-react'
+import { LayoutDashboard, Users, Power, Home, User } from 'lucide-react'
 import { Button } from '../ui/button'
 import { FaIoxhost } from 'react-icons/fa'
 import { CgProfile } from "react-icons/cg";
+import { BiBeenHere } from "react-icons/bi";
+import { LuSaveAll } from "react-icons/lu";
+import { IoSettings } from "react-icons/io5";
 
 const Leftbar = () => {
     const navigate = useNavigate();
 
     const UserLinks = [
         {
-            title: 'Profile',
-            link: '/user/profile',
-            icon:CgProfile
+            title: 'User DashBoard',
+            link: '/user/dashboard',
+            icon:Home
 
         },
         {
-            title: 'Job Search',
-            link: '/user/job-search',
-            icon: Users
+            title: 'Profile',
+            link: '/user/profile',
+            icon: User
         },
-    //     {
-    //         title: 'Jobs',
-    //         link: '/admin/jobs1',
-    //         icon: FaIoxhost
-    //     },
+        {
+            title: 'Job Applications',
+            link: '/user/job',
+            icon: BiBeenHere
+        },
+        {
+            title: 'Settings',
+            link: '/user/settings',
+            icon: IoSettings
+        },
+        {
+            title: 'Help',
+            link: '/user/help',
+            icon: FaIoxhost
+        },
     //     {
     //         title:'Document Management',
     //         link:'/admin/documentmanagement',
@@ -44,7 +57,7 @@ const Leftbar = () => {
     }
 
     return (
-        <div className='h-screen w-1/6 flex justify-center items-center flex-col shadow-sm shadow-primary pt-10'>
+        <div className='h-screen w-1/6 flex justify-center items-center flex-col shadow-sm shadow-primary pt-10 '>
             <div className='h-[5%] text-primary font-bold text-2xl flex justify-center items-center'>
                 JobAura
             </div>
